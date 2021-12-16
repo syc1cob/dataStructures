@@ -1,0 +1,72 @@
+/******************************************************************************
+
+                              Online C++ Compiler.
+               Code, Compile, Run and Debug C++ program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <iostream>
+
+using namespace std;
+
+class Node{
+public:
+    int value;
+    Node* next;
+    Node(int val):value(val), next(nullptr){
+    }
+};
+
+void print(Node** head){
+    Node* temp = *head;
+    while (temp){
+        cout<<temp->value<<"\t";
+        temp = temp->next;
+    }
+    cout<<endl;
+ }
+
+void reverseList(Node** head){
+    Node* prev = nullptr;
+    Node* next = nullptr;
+    Node* thead = *head;
+    while (thead){
+        next = thead->next;
+        thead->next = prev;
+        prev = thead;
+        thead = next;
+    }
+    *head = prev;
+} 
+
+Node* createNode(int val){
+    return new Node(val);
+}
+void insertValue(Node** head, int val){
+    if (nullptr == *head){
+        *head = new Node(val);
+    }
+    else{
+        Node* temp = *head;
+        while (temp->next){
+            
+            temp = temp->next;
+        }
+        temp->next = new Node(val);
+    }
+}
+
+int main()
+{
+    Node* head = nullptr;
+
+    for(int idx = 1; idx <= 5; idx++){
+        insertValue(&head, idx);
+    }
+    
+    print(&head);
+    
+    reverseList(&head);
+    print(&head);
+}
